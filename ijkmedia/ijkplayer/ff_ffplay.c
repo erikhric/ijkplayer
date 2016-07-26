@@ -2377,6 +2377,10 @@ static int read_thread(void *arg)
 {
     FFPlayer *ffp = arg;
     VideoState *is = ffp->is;
+	is->av_sync_type = AV_SYNC_EXTERNAL_CLOCK;
+	
+	
+	
     AVFormatContext *ic = NULL;
     int err, i, ret __unused;
     int st_index[AVMEDIA_TYPE_NB];
@@ -3478,7 +3482,7 @@ int ffp_prepare_async_l(FFPlayer *ffp, const char *file_name)
     ffp_show_dict(ffp, "sws-opts   ", ffp->sws_dict);
     ffp_show_dict(ffp, "swr-opts   ", ffp->swr_opts);
     av_log(NULL, AV_LOG_INFO, "===================\n");
-
+	ffp->av_sync_type = AV_SYNC_EXTERNAL_CLOCK;
     av_opt_set_dict(ffp, &ffp->player_opts);
     if (!ffp->aout) {
         ffp->aout = ffpipeline_open_audio_output(ffp->pipeline, ffp);
@@ -4023,6 +4027,7 @@ int ffp_set_stream_selected(FFPlayer *ffp, int stream, int selected)
 
 float ffp_get_property_float(FFPlayer *ffp, int id, float default_value)
 {
+	ffp->stat->
     switch (id) {
         case FFP_PROP_FLOAT_VIDEO_DECODE_FRAMES_PER_SECOND:
             return ffp ? ffp->stat.vdps : default_value;
