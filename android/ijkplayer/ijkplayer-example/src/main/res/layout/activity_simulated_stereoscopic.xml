@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:opencv="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/firstLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/secondView"
+        android:orientation="vertical"
+        android:background="#ff0000">
+
+        <tv.danmaku.ijk.media.example.widget.media.IjkVideoView
+            android:id="@+id/video_viewLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+            <TableLayout
+                android:id="@+id/hud_view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:background="@color/ijk_transparent_dark"
+                android:padding="8dp" />
+
+        </tv.danmaku.ijk.media.example.widget.media.IjkVideoView>
+
+
+    </LinearLayout>
+    <View
+        android:id="@+id/secondView"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true" />
+    <LinearLayout
+        android:id="@+id/thirdLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@+id/secondView"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+        <tv.danmaku.ijk.media.example.widget.stereoscopic.ReflectedView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/reflected"/>
+            <!--android:visibility="gone"-->
+            <!--opencv:show_fps="true"-->
+            <!--opencv:camera_id="any"-->
+
+
+
+        </FrameLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -134,7 +134,7 @@ public final class IjkMediaPlayer extends AbstractMediaPlayer {
     @AccessedByNative
     private int mListenerContext;
 
-    private SurfaceHolder mSurfaceHolder;
+    public SurfaceHolder mSurfaceHolder;
     private EventHandler mEventHandler;
     private PowerManager.WakeLock mWakeLock = null;
     private boolean mScreenOnWhilePlaying;

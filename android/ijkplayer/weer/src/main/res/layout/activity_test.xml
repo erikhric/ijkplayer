@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:opencv="http://schemas.android.com/tools">
+
+    <android.opengl.GLSurfaceView
+        android:id="@+id/gl_surface_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <sk.kebapp.weer.widget.opengl.GLLinearLayout
+        android:id="@+id/gl_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/firstLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/split"
+        android:orientation="horizontal"
+        android:background="#ff0000">
+
+
+
+        <sk.kebapp.weer.widget.media.IjkVideoView
+            android:id="@+id/video_viewLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TableLayout
+                android:id="@+id/hud_view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:background="@color/colorAccent"
+                android:padding="8dp" />
+
+        </sk.kebapp.weer.widget.media.IjkVideoView>
+
+    </LinearLayout>
+    </sk.kebapp.weer.widget.opengl.GLLinearLayout>
+</RelativeLayout>
