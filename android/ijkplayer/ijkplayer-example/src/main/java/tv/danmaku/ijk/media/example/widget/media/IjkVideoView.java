@@ -20,6 +20,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -80,7 +82,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     // All the stuff we need for playing and showing a video
     private IRenderView.ISurfaceHolder mSurfaceHolder = null;
-    private IMediaPlayer mMediaPlayer = null;
+    public IMediaPlayer mMediaPlayer = null;
     // private int         mAudioSession;
     private int mVideoWidth;
     private int mVideoHeight;
@@ -108,7 +110,7 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
 
     private Context mAppContext;
     private Settings mSettings;
-    private IRenderView mRenderView;
+    public IRenderView mRenderView;
     private int mVideoSarNum;
     private int mVideoSarDen;
 
@@ -134,6 +136,21 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         super(context, attrs, defStyleAttr, defStyleRes);
         initVideoView(context);
     }
+//
+//    @Override
+//    public void draw(Canvas canvas) {
+//        canvas.scale(.5f,1);
+//        canvas.translate(getMeasuredWidth()/-4, 0);
+////        canvas.save();
+//        super.draw(canvas);
+//
+////        canvas.translate(getMeasuredWidth() + 30,0);
+////        canvas.save();
+//        canvas.rotate(55);
+////        super.draw(canvas);
+//        drawChild(canvas, this, getDrawingTime());
+//        canvas.restore();
+//    }
 
     // REMOVED: onMeasure
     // REMOVED: onInitializeAccessibilityEvent
@@ -223,6 +240,27 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
         mHudViewHolder = new InfoHudViewHolder(getContext(), tableLayout);
     }
 
+//    @Override
+//    protected void onDraw(Canvas canvas) {
+//        super.onDraw(canvas);
+//
+//        invalidate();
+//    }
+
+    public static Bitmap getBitmapFromView(View view, int width, int height) {
+        int widthSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY);
+        int heightSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
+        view.measure(widthSpec, heightSpec);
+        view.layout(0, 0, width, height);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
+    }
+
+
+
     /**
      * Sets video path.
      *
@@ -305,6 +343,14 @@ public class IjkVideoView extends FrameLayout implements MediaController.MediaPl
             mMediaPlayer.setOnErrorListener(mErrorListener);
             mMediaPlayer.setOnInfoListener(mInfoListener);
             mMediaPlayer.setOnBufferingUpdateListener(mBufferingUpdateListener);
+
+
+            if (mMediaPlayer instanceof IjkMediaPlayer){
+                IjkMediaPlayer p = (IjkMediaPlayer) mMediaPlayer;
+                p.setOption(IjkMediaPlayer.OPT_CATEGORY_PLAYER, "packet-buffering", 0);
+            }
+
+
             mCurrentBufferPercentage = 0;
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
                 mMediaPlayer.setDataSource(mAppContext, mUri, mHeaders);
